@@ -6,8 +6,6 @@ REM Active perl must be installed
 
 set scriptPATH=%CD%\..\..\..\..\..\..\..\__INTERNAL__tools\tools\_CmsisDeviceGenerator\
 
-echo %scriptPATH%
-
 if not exist "%scriptPATH%"  (
 	echo Input directory does not exist!
 	pause
@@ -16,7 +14,7 @@ if not exist "%scriptPATH%"  (
 
 cd %scriptPATH%
 
-perl DeviceGeneration.pl  --target STM32L4xx -replace
+perl DeviceGeneration.pl  --target STM32F4xx -replace
 
 pause
-
+:EOF

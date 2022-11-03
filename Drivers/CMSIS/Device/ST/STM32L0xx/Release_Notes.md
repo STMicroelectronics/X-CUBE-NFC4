@@ -49,6 +49,24 @@ Various template file are provided to easily build an application. They can be a
 # Update History
 
 ::: {.collapse}
+<input type="checkbox" id="collapse-section15" aria-hidden="true">
+<label for="collapse-section15" aria-hidden="true">V1.9.2 / 16-July-2021</label>
+<div>
+
+## Main Changes
+
+### Maintenance release
+
+## Contents
+
+- Add new atomic register access macros in stm32l0xx.h file.
+- Add LSI maximum startup time datasheet value: LSI_STARTUP_TIME.
+
+</div>
+:::
+
+
+::: {.collapse}
 <input type="checkbox" id="collapse-section14" aria-hidden="true">
 <label for="collapse-section14" aria-hidden="true">V1.9.1 / 28-October-2020</label>
 <div>
