@@ -161,19 +161,9 @@
 			<locationURI>PARENT-5-PROJECT_LOC/Drivers/BSP/Components/ST25DV/st25dv.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/BSP/Components/st25dv.h</name>
-			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Drivers/BSP/Components/ST25DV/st25dv.h</locationURI>
-		</link>
-		<link>
 			<name>Drivers/BSP/Components/st25dv_reg.c</name>
 			<type>1</type>
 			<locationURI>PARENT-5-PROJECT_LOC/Drivers/BSP/Components/ST25DV/st25dv_reg.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/Components/st25dv_reg.h</name>
-			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Drivers/BSP/Components/ST25DV/st25dv_reg.h</locationURI>
 		</link>
 		<link>
 			<name>Drivers/BSP/NFC04A1/nfc04a1.c</name>
@@ -181,19 +171,9 @@
 			<locationURI>PARENT-5-PROJECT_LOC/Drivers/BSP/NFC04A1/nfc04a1.c</locationURI>
 		</link>
 		<link>
-			<name>Drivers/BSP/NFC04A1/nfc04a1.h</name>
-			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Drivers/BSP/NFC04A1/nfc04a1.h</locationURI>
-		</link>
-		<link>
 			<name>Drivers/BSP/NFC04A1/nfc04a1_nfctag.c</name>
 			<type>1</type>
 			<locationURI>PARENT-5-PROJECT_LOC/Drivers/BSP/NFC04A1/nfc04a1_nfctag.c</locationURI>
-		</link>
-		<link>
-			<name>Drivers/BSP/NFC04A1/nfc04a1_nfctag.h</name>
-			<type>1</type>
-			<locationURI>PARENT-5-PROJECT_LOC/Drivers/BSP/NFC04A1/nfc04a1_nfctag.h</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

@@ -2,30 +2,21 @@
   ******************************************************************************
   * @file    lib_NDEF_Wifi.h
   * @author  Central LAB
-  * @version $Revision:$
-  * @date    $Date:$
+  * @version 1.3.2
+  * @date    28-Feb-2022
   * @brief   This file helps to manage the NDEF message representing a Wifi Token.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT 2016 STMicroelectronics</center></h2>
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
   *
-  * Licensed under ST MYLIBERTY SOFTWARE LICENSE AGREEMENT (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
-  *
-  *        http://www.st.com/myliberty  
-  *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied,
-  * AND SPECIFICALLY DISCLAIMING THE IMPLIED WARRANTIES OF MERCHANTABILITY,
-  * FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __LIB_NDEF_WIFIT_H
@@ -74,19 +65,36 @@
 #define NDEF_WIFI_DEFAULT_NETWORK_KEY	 								      "00000000"
 
 typedef enum {
+#if 0
   NDEF_WIFI_ENCRYPTION_NONE = 0x0000, /**< WPS No Encryption (set to 0 for Android native support / should be 1) */
   NDEF_WIFI_ENCRYPTION_WEP  = 0x0002, /**< WPS Encryption based on WEP  */
   NDEF_WIFI_ENCRYPTION_TKIP = 0x0003, /**< WPS Encryption based on TKIP  */
   NDEF_WIFI_ENCRYPTION_AES  = 0x0004 /**< WPS Encryption based on AES  */
+#else
+  NDEF_WIFI_ENCRYPTION_NONE = 0x0001, /**< WPS No Encryption (set to 0 for Android native support / should be 1) */
+  NDEF_WIFI_ENCRYPTION_WEP  = 0x0002, /**< WPS Encryption based on WEP  */
+  NDEF_WIFI_ENCRYPTION_TKIP = 0x0004, /**< WPS Encryption based on TKIP  */
+  NDEF_WIFI_ENCRYPTION_AES  = 0x0008 /**< WPS Encryption based on AES  */
+#endif
 } Ndef_Wifi_Encryption_t;
 
 typedef enum {
+#if 0
   NDEF_WIFI_AUTHENTICATION_NONE     = 0x0000, /**< WPS No Authentication (set to 0 for Android native support / should be 1)  */
   NDEF_WIFI_AUTHENTICATION_WPAPSK   = 0x0002, /**< WPS Authentication based on WPAPSK  */
   NDEF_WIFI_AUTHENTICATION_SHARED   = 0x0003, /**< WPS Authentication based on ??  */
   NDEF_WIFI_AUTHENTICATION_WPA      = 0x0004, /**< WPS Authentication based on WPA  */
   NDEF_WIFI_AUTHENTICATION_WPA2     = 0x0005, /**< WPS Authentication based on WPA2  */
   NDEF_WIFI_AUTHENTICATION_WPA2PSK  = 0x0006 /**< WPS Authentication based on WPA2PSK  */
+#else
+  NDEF_WIFI_AUTHENTICATION_NONE     = 0x0001, /**< WPS No Authentication (set to 0 for Android native support / should be 1)  */
+  NDEF_WIFI_AUTHENTICATION_WPAPSK   = 0x0002, /**< WPS Authentication based on WPAPSK  */
+  NDEF_WIFI_AUTHENTICATION_SHARED   = 0x0004, /**< WPS Authentication based on ??  */
+  NDEF_WIFI_AUTHENTICATION_WPA      = 0x0008, /**< WPS Authentication based on WPA  */
+  NDEF_WIFI_AUTHENTICATION_WPA2     = 0x0010, /**< WPS Authentication based on WPA2  */
+  NDEF_WIFI_AUTHENTICATION_WPA2PSK  = 0x0020 /**< WPS Authentication based on WPA2PSK  */
+#endif 
+    
 } Ndef_Wifi_Authentication_t;
 
 /**
@@ -114,5 +122,3 @@ uint16_t NDEF_WriteWifiToken( sWifiTokenInfo *pWifiTokenStruct );
 #endif
 	 
 #endif /* __LIB_NDEF_WIFIT_H */
-
-/******************* (C) COPYRIGHT 2016 STMicroelectronics *****END OF FILE****/

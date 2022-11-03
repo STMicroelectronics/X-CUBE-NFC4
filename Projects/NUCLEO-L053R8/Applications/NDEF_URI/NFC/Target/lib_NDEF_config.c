@@ -2,12 +2,14 @@
   ******************************************************************************
   * @file    lib_NDEF_config.c
   * @author  MMY Application Team
+  * @version 1.3.2
+  * @date    28-Feb-2022
   * @brief   This file is a template to be modified in the project to configure
   *          how the lib_NDEF is supposed to access the nfctag memory.
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file

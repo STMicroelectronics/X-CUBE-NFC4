@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -58,11 +58,12 @@ extern EXTI_HandleTypeDef GPO_EXTI;
 
 #define NFC04A1_NFCTAG_GPO_PRIORITY     (0)
 
+#define I2C_INSTANCE  hi2c1
+extern I2C_HandleTypeDef hi2c1;
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* __NFC04A1_CONF_H__*/
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

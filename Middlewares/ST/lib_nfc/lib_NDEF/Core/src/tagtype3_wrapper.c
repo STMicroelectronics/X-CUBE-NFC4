@@ -1,3 +1,22 @@
+/**
+  ******************************************************************************
+  * @file    tagtype3_wrapper.c 
+  * @author  MMY Application Team
+  * @version 1.3.2
+  * @date    28-Feb-2022
+  * @brief   This file provides an abstraction layer to the libNDEF for the NFC Forum Type3 Tag.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2022 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
 #include "lib_wrapper.h"
 #include "lib_NDEF_config.h"
 

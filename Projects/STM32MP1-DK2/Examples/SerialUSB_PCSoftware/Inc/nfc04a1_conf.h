@@ -14,8 +14,6 @@
   * This software is licensed under terms that can be found in the LICENSE file
   * in the root directory of this software component.
   * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -31,8 +29,7 @@ extern "C" {
 #include "stm32mp1xx_hal_exti.h"
 
 #define BSP_ERROR_NONE                    0
-//#include "nucleo_l476rg_bus.h"
-//#include "nucleo_l476rg_errno.h"
+
 int32_t ST25DV_IO_IsDeviceReady( uint16_t DevAddr, const uint32_t Trials );
 uint8_t ST25DV_IO_IsNacked( void );
 int32_t ST25DV_IO_Init( void );
@@ -69,6 +66,8 @@ uint8_t ST25DV_IO_IsNacked( void );
 
 #define NFC04A1_NFCTAG_GPO_PRIORITY     (0)
 
+#define I2C_INSTANCE  hi2c5
+extern I2C_HandleTypeDef hi2c5;
 
 #ifdef __cplusplus
 }

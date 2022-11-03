@@ -3,11 +3,11 @@
   ******************************************************************************
   * File Name          :  app_x-cube-nfc4.c
   * Description        : This file provides code for the configuration
-  *                      of the STMicroelectronics.X-CUBE-NFC4.2.0.4 instances.
+  *                      of the STMicroelectronics.X-CUBE-NFC4.2.0.5 instances.
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -118,10 +118,123 @@
 /******** PROTOCOL COMMUNICATION  CMD  (0x80 - 0x8F)  ********/
 #define CMD_Reply_OK                                  0x80
 
+#define I2C_VALID_TIMING_NBR                 128U
+
+#define DIV_ROUND_CLOSEST(x, d)  (((x) + ((d) / 2U)) / (d))
+
+#define I2C_ANALOG_FILTER_DELAY_MIN            50U     /* ns */
+#define I2C_ANALOG_FILTER_DELAY_MAX            260U    /* ns */
+#define I2C_ANALOG_FILTER_DELAY_DEFAULT        2U      /* ns */
+
+#define I2C_SPEED_10KHZ                         0U    /* 10 kHz */
+#define I2C_SPEED_100KHZ                        1U    /* 100 kHz */
+#define I2C_SPEED_200KHZ                        2U    /* 200 kHz */
+#define I2C_SPEED_400KHZ                        3U    /* 400 kHz */
+#define I2C_SPEED_800KHZ                        4U    /* 800 KHz */
+#define I2C_SPEED_1MHZ                          5U    /* 1 MHz */
+
+#define I2C_PRESC_MAX                          16U
+#define I2C_SCLDEL_MAX                         16U
+#define I2C_SDADEL_MAX                         16U
+#define I2C_SCLH_MAX                           256U
+#define I2C_SCLL_MAX                           256U
+#define SEC2NSEC                               1000000000UL
+
+const I2C_Charac_t I2C_Charac[] =
+{
+    [I2C_SPEED_10KHZ] =
+  {
+    .freq = 10000,
+    .freq_min = 8000,
+    .freq_max = 12000,
+    .hddat_min = 0,
+    .vddat_max = 34500,
+    .sudat_min = 2500,
+    .lscl_min = 47000,
+    .hscl_min = 40000,
+    .trise = 800,
+    .tfall = 200,
+    .dnf = I2C_ANALOG_FILTER_DELAY_DEFAULT,
+  },
+  [I2C_SPEED_100KHZ] =
+  {
+    .freq = 100000,
+    .freq_min = 80000,
+    .freq_max = 120000,
+    .hddat_min = 0,
+    .vddat_max = 3450,
+    .sudat_min = 250,
+    .lscl_min = 4700,
+    .hscl_min = 4000,
+    .trise = 400,
+    .tfall = 100,
+    .dnf = I2C_ANALOG_FILTER_DELAY_DEFAULT,
+  },
+   [I2C_SPEED_200KHZ] =
+  {
+    .freq = 200000,
+    .freq_min = 160000,
+    .freq_max = 240000,
+    .hddat_min = 0,
+    .vddat_max = 1700,
+    .sudat_min = 150,
+    .lscl_min = 2500,
+    .hscl_min = 2000,
+    .trise = 200,
+    .tfall = 50,
+    .dnf = I2C_ANALOG_FILTER_DELAY_DEFAULT,
+  },
+  [I2C_SPEED_400KHZ] =
+  {
+    .freq = 480000,
+    .freq_min = 320000,
+    .freq_max = 480000,
+    .hddat_min = 0,
+    .vddat_max = 850,
+    .sudat_min = 75,
+    .lscl_min = 1250,
+    .hscl_min = 1000,
+    .trise = 100,
+    .tfall = 25,
+    .dnf = I2C_ANALOG_FILTER_DELAY_DEFAULT,
+  },
+  [I2C_SPEED_800KHZ] =
+  {
+    .freq = 800000,
+    .freq_min = 640000,
+    .freq_max = 960000,
+    .hddat_min = 0,
+    .vddat_max = 450,
+    .sudat_min = 50,
+    .lscl_min = 500,
+    .hscl_min = 260,
+    .trise = 60,
+    .tfall = 100,
+    .dnf = I2C_ANALOG_FILTER_DELAY_DEFAULT,
+  },
+    [I2C_SPEED_1MHZ] =
+  {
+    .freq = 1225000,
+    .freq_min = 980000,
+    .freq_max = 1470000,
+    .hddat_min = 0,
+    .vddat_max = 300,
+    .sudat_min = 30,
+    .lscl_min = 300,
+    .hscl_min = 200,
+    .trise = 60,
+    .tfall = 100,
+    .dnf = I2C_ANALOG_FILTER_DELAY_DEFAULT,
+  },
+};
+
+I2C_Timings_t valid_timing[I2C_VALID_TIMING_NBR];
+uint32_t valid_timing_nbr = 0;
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Global variables ----------------------------------------------------------*/
-//UART_HandleTypeDef* HandleUart;
+uint32_t UsrI2cTiming = 0x10909CEC;
+uint32_t UsrI2cFreq = 100000;
 
 extern UART_HandleTypeDef hcom_uart[COMn];
 volatile uint8_t UART_RxBuffer[UART_RXBUFFERSIZE];
@@ -629,13 +742,13 @@ int32_t Deserialize_s32( const uint8_t * const Source, uint32_t Len )
  */
 int32_t Deserialize_s32_MSBfirst( const uint8_t * const Source, const uint32_t Len )
 {
-  int i;
+  int ctr;
   int32_t app = 0;
 
-	for( i = 0; i < Len; i++ )
+	for( ctr = 0; ctr < Len; ctr++ )
   {
     app <<= 8;
-	app += Source[i];
+	app += Source[ctr];
   }
   return app;
 }
@@ -933,6 +1046,89 @@ void SetPayloadLength( TMsg * const Msg, const uint16_t payloadsize )
 }
 
 /**
+  * @brief  Set the I2C Frequency
+  * @retval None
+  */
+void SelectI2cSpeed( uint16_t Speed )
+{
+  uint32_t apb1Clock;
+
+  switch(Speed)
+  {
+  case 0: /* I2C Speed 10KHz*/
+    UsrI2cFreq = 10000;
+    break;
+
+  case 1: /* I2C Speed 100KHz*/
+     UsrI2cFreq = 100000;
+    break;
+
+  case 2: /* I2C Speed 200KHz*/
+     UsrI2cFreq = 200000;
+    break;
+
+  case 3: /* I2C Speed 400KHz*/
+     UsrI2cFreq = 400000;
+    break;
+
+  case 4: /* I2C Speed 800KHz*/
+     UsrI2cFreq = 800000;
+    break;
+
+  case 5: /* I2C Speed 1MHz*/
+     UsrI2cFreq = 1000000;
+    break;
+
+  default:
+     UsrI2cFreq = 100000; /* I2C Speed 10KHz*/
+    break;
+
+  }
+
+  apb1Clock = HAL_RCC_GetPCLK1Freq();
+  UsrI2cTiming =  App_I2C_GetTiming(apb1Clock,UsrI2cFreq);
+  I2C_INSTANCE.Init.Timing = UsrI2cTiming;
+  MX_I2C1_Init(&I2C_INSTANCE);
+}
+
+/**
+  * @brief  Initialize I2C
+  * @retval Initialzation status
+  */
+HAL_StatusTypeDef MX_I2C1_Init(I2C_HandleTypeDef* hi2c)
+{
+  HAL_StatusTypeDef ret = HAL_OK;
+
+  hi2c->Instance = I2C1;
+  hi2c->Init.Timing = UsrI2cTiming;
+  hi2c->Init.OwnAddress1 = 0;
+  hi2c->Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c->Init.OwnAddress2 = 0;
+  hi2c->Init.OwnAddress2Masks = I2C_OA2_NOMASK;
+  hi2c->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c->Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(hi2c) != HAL_OK)
+  {
+    ret = HAL_ERROR;
+  }
+
+  if (HAL_I2CEx_ConfigAnalogFilter(hi2c, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  {
+    ret = HAL_ERROR;
+  }
+
+  if (HAL_I2CEx_ConfigDigitalFilter(hi2c, 2) != HAL_OK)
+  {
+    ret = HAL_ERROR;
+  }
+
+  HAL_I2CEx_EnableFastModePlus(I2C_FASTMODEPLUS_I2C1);
+
+  return ret;
+}
+
+/**
   * @brief  Handle a message
   * @param  Msg: pointer to the message received
   * @retval SERIALCOM_StatusTypeDef
@@ -1031,6 +1227,10 @@ SERIALCOM_StatusTypeDef HandleMSG( TMsg * const Msg )
       /*---------------------------------*/
       case CMD_ST25DV_I2C_SPEED:
 
+        SelectI2cSpeed( Msg->Data[SERIAL_COM_PAYLOAD] );
+
+        Build_Reply_Header( Msg );
+        SerialCom_SendMsg( Msg );
         break;
 
       /*---------------------------------*/
@@ -1212,8 +1412,203 @@ SERIALCOM_StatusTypeDef HandleMSG( TMsg * const Msg )
   return ret;
 }
 
+/**
+  * @brief  Convert the I2C Frequency into I2C timing.
+  * @note   The algorithm to compute the different fields of the Timings register
+  *         is described in the AN4235 and the charac timings are inline with
+  *         the product RM.
+  * @param  clock_src_freq : I2C source clock in HZ.
+  * @param  i2c_freq : I2C frequency in Hz.
+  * @retval I2C timing value
+  */
+uint32_t App_I2C_GetTiming(uint32_t clock_src_freq, uint32_t i2c_freq)
+{
+  uint32_t ret = 0;
+  uint32_t speed;
+  uint32_t idx;
+
+  if((clock_src_freq != 0U) && (i2c_freq != 0U))
+  {
+    for ( speed = 0 ; speed <=  (uint32_t)I2C_SPEED_1MHZ ; speed++)
+    {
+      if ((i2c_freq >= I2C_Charac[speed].freq_min) &&
+          (i2c_freq <= I2C_Charac[speed].freq_max))
+      {
+        App_Compute_PRESC_SCLDEL_SDADEL(clock_src_freq, speed);
+        idx = App_Compute_SCLL_SCLH(clock_src_freq, speed);
+
+        if (idx < I2C_VALID_TIMING_NBR)
+        {
+          ret = ((valid_timing[idx].presc  & 0x0FU) << 28) |\
+                ((valid_timing[idx].tscldel & 0x0FU) << 20) |\
+                ((valid_timing[idx].tsdadel & 0x0FU) << 16) |\
+                ((valid_timing[idx].sclh & 0xFFU) << 8) |\
+                ((valid_timing[idx].scll & 0xFFU) << 0);
+        }
+        break;
+      }
+    }
+  }
+
+  return ret;
+}
+
+/**
+  * @brief  Compute PRESC, SCLDEL and SDADEL.
+  * @param  clock_src_freq : I2C source clock in HZ.
+  * @param  I2C_Speed : I2C frequency (index).
+  * @retval None
+  */
+void App_Compute_PRESC_SCLDEL_SDADEL(uint32_t clock_src_freq, uint32_t I2C_Speed)
+{
+  uint32_t prev_presc = I2C_PRESC_MAX;
+  uint32_t ti2cclk;
+  int32_t  tsdadel_min, tsdadel_max;
+  int32_t  tscldel_min;
+  uint32_t presc, scldel, sdadel;
+
+  ti2cclk   = (SEC2NSEC + (clock_src_freq / 2U))/ clock_src_freq;
+
+  /* tDNF = DNF x tI2CCLK
+     tPRESC = (PRESC+1) x tI2CCLK
+     SDADEL >= {tf +tHD;DAT(min) - tAF(min) - tDNF - [3 x tI2CCLK]} / {tPRESC}
+     SDADEL <= {tVD;DAT(max) - tr - tAF(max) - tDNF- [4 x tI2CCLK]} / {tPRESC} */
+
+  tsdadel_min = (int32_t)I2C_Charac[I2C_Speed].tfall + (int32_t)I2C_Charac[I2C_Speed].hddat_min -
+    (int32_t)I2C_ANALOG_FILTER_DELAY_MIN - (int32_t)(((int32_t)I2C_Charac[I2C_Speed].dnf + 3) * (int32_t)ti2cclk);
+
+  tsdadel_max = (int32_t)I2C_Charac[I2C_Speed].vddat_max - (int32_t)I2C_Charac[I2C_Speed].trise -
+    (int32_t)I2C_ANALOG_FILTER_DELAY_MAX - (int32_t)(((int32_t)I2C_Charac[I2C_Speed].dnf + 4) * (int32_t)ti2cclk);
+
+  /* {[tr+ tSU;DAT(min)] / [tPRESC]} - 1 <= SCLDEL */
+  tscldel_min = (int32_t)I2C_Charac[I2C_Speed].trise + (int32_t)I2C_Charac[I2C_Speed].sudat_min;
+
+  if (tsdadel_min <= 0)
+  {
+    tsdadel_min = 0;
+  }
+
+  if (tsdadel_max <= 0)
+  {
+    tsdadel_max = 0;
+  }
+
+  for (presc = 0; presc < I2C_PRESC_MAX; presc++)
+  {
+    for (scldel = 0; scldel < I2C_SCLDEL_MAX; scldel++)
+    {
+      /* TSCLDEL = (SCLDEL+1) * (PRESC+1) * TI2CCLK */
+      uint32_t tscldel = (scldel + 1U) * (presc + 1U) * ti2cclk;
+
+      if (tscldel >= (uint32_t)tscldel_min)
+      {
+        for (sdadel = 0; sdadel < I2C_SDADEL_MAX; sdadel++)
+        {
+          /* TSDADEL = SDADEL * (PRESC+1) * TI2CCLK */
+          uint32_t tsdadel = (sdadel * (presc + 1U)) * ti2cclk;
+
+          if ((tsdadel >= (uint32_t)tsdadel_min) && (tsdadel <= (uint32_t)tsdadel_max))
+          {
+            if(presc != prev_presc)
+            {
+              valid_timing[valid_timing_nbr].presc = presc;
+              valid_timing[valid_timing_nbr].tscldel = scldel;
+              valid_timing[valid_timing_nbr].tsdadel = sdadel;
+              prev_presc = presc;
+              valid_timing_nbr ++;
+
+              if(valid_timing_nbr >= I2C_VALID_TIMING_NBR)
+              {
+                return;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+  * @brief  Calculate SCLL and SCLH and find best configuration.
+  * @param  clock_src_freq : I2C source clock in HZ.
+  * @param  I2C_Speed : I2C frequency (index).
+  * @retval config index (0 to I2C_VALID_TIMING_NBR], 0xFFFFFFFF : no valid config
+  */
+uint32_t App_Compute_SCLL_SCLH (uint32_t clock_src_freq, uint32_t I2C_speed)
+{
+  uint32_t ret = 0xFFFFFFFFU;
+  uint32_t ti2cclk;
+  uint32_t ti2cspeed;
+  uint32_t prev_error;
+  uint32_t dnf_delay;
+  uint32_t clk_min, clk_max;
+  uint32_t scll, sclh;
+
+  ti2cclk   = (SEC2NSEC + (clock_src_freq / 2U))/ clock_src_freq;
+  ti2cspeed   = (SEC2NSEC + (I2C_Charac[I2C_speed].freq / 2U))/ I2C_Charac[I2C_speed].freq;
+
+  /* tDNF = DNF x tI2CCLK */
+  dnf_delay = I2C_Charac[I2C_speed].dnf * ti2cclk;
+
+  clk_max = SEC2NSEC / I2C_Charac[I2C_speed].freq_min;
+  clk_min = SEC2NSEC / I2C_Charac[I2C_speed].freq_max;
+
+  prev_error = ti2cspeed;
+
+  for (uint32_t count = 0; count < valid_timing_nbr; count++)
+  {
+    /* tPRESC = (PRESC+1) x tI2CCLK*/
+    uint32_t tpresc = (valid_timing[count].presc + 1U) * ti2cclk;
+
+    for (scll = 0; scll < I2C_SCLL_MAX; scll++)
+    {
+      /* tLOW(min) <= tAF(min) + tDNF + 2 x tI2CCLK + [(SCLL+1) x tPRESC ] */
+      uint32_t tscl_l = I2C_ANALOG_FILTER_DELAY_MIN + dnf_delay + (2U * ti2cclk) + (scll + 1U) * tpresc;
+
+      /* The I2CCLK period tI2CCLK must respect the following conditions:
+      tI2CCLK < (tLOW - tfilters) / 4 and tI2CCLK < tHIGH */
+      if ((tscl_l > I2C_Charac[I2C_speed].lscl_min) && (ti2cclk < ((tscl_l - I2C_ANALOG_FILTER_DELAY_MIN - dnf_delay) / 4U)))
+      {
+        for (sclh = 0; sclh < I2C_SCLH_MAX; sclh++)
+        {
+          /* tHIGH(min) <= tAF(min) + tDNF + 2 x tI2CCLK + [(SCLH+1) x tPRESC] */
+          uint32_t tscl_h = I2C_ANALOG_FILTER_DELAY_MIN + dnf_delay + (2U * ti2cclk) + (sclh + 1U) * tpresc;
+
+          /* tSCL = tf + tLOW + tr + tHIGH */
+          uint32_t tscl = tscl_l + tscl_h + I2C_Charac[I2C_speed].trise + I2C_Charac[I2C_speed].tfall;
+
+          if ((tscl >= clk_min) && (tscl <= clk_max) && (tscl_h >= I2C_Charac[I2C_speed].hscl_min) && (ti2cclk < tscl_h))
+          {
+            int32_t error = (int32_t)tscl - (int32_t)ti2cspeed;
+
+            if (error < 0)
+            {
+              error = -error;
+            }
+
+            /* look for the timings with the lowest clock error */
+            if ((uint32_t)error < prev_error)
+            {
+              prev_error = (uint32_t)error;
+              valid_timing[count].scll = scll;
+              valid_timing[count].sclh = sclh;
+              ret = count;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return ret;
+}
+
 #ifdef __cplusplus
 }
 #endif
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#ifdef __cplusplus
+}
+#endif
+

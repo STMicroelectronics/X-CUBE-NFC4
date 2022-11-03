@@ -307,4 +307,4 @@ void NFC04A1_GPO_IRQHandler(void)
  * @}
  */
 
-/******************* (C) COPYRIGHT 2017 STMicroelectronics *****END OF FILE****/
+

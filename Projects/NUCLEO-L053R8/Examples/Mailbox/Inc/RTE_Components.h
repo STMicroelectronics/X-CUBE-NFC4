@@ -22,7 +22,7 @@
 #define  __RTE_COMPONENTS_H__
 
 /* Defines ------------------------------------------------------------------*/
-/* STMicroelectronics.X-CUBE-NFC4.2.0.4 */
+/* STMicroelectronics.X-CUBE-NFC4.2.0.5 */
 #define NFC04A1
 #define NFC04A1_MAILBOX_DEMO
 

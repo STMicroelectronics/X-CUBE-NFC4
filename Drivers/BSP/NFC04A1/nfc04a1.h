@@ -117,4 +117,4 @@ void NFC04A1_GPO_IRQHandler(void);
 #endif
 #endif /* __X_NUCLEO_NFC04A1_H */
 
-/******************* (C) COPYRIGHT 2017 STMicroelectronics *****END OF FILE****/
+

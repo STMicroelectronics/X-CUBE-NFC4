@@ -3,11 +3,11 @@
   ******************************************************************************
   * File Name          :  app_x-cube-nfc4.c
   * Description        : This file provides code for the configuration
-  *                      of the STMicroelectronics.X-CUBE-NFC4.2.0.4 instances.
+  *                      of the STMicroelectronics.X-CUBE-NFC4.2.0.5 instances.
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -198,4 +198,3 @@ void BSP_PB_Callback(Button_TypeDef Button)
 }
 #endif
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

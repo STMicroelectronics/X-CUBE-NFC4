@@ -1066,4 +1066,4 @@ int32_t NFC04A1_NFCTAG_ReadMBLength_Dyn(uint32_t Instance, uint8_t * const pMBLe
  * @}
  */
 
-/******************* (C) COPYRIGHT 2017 STMicroelectronics *****END OF FILE****/
+

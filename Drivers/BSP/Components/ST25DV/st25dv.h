@@ -457,4 +457,4 @@ int32_t ST25DV_ReadMBLength_Dyn( ST25DV_Object_t* pObj, uint8_t * const pMBLengt
 #endif
 #endif /* __ST25DV_H */
 
-/******************* (C) COPYRIGHT 2016 STMicroelectronics *****END OF FILE****/
+
