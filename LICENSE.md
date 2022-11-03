@@ -9,7 +9,8 @@
 | BSP STM32L0xx_Nucleo            		  | STMicroelectronics  			  | BSD-3-Clause |				
 | BSP STM32L4xx_Nucleo                    | STMicroelectronics 				  | BSD-3-Clause |           		
 | BSP Components                  		  | STMicroelectronics 				  | BSD-3-Clause |          		
-| NDEF Middleware                    	  | STMicroelectronics                | SLA0051      |     			
+| NDEF Middleware                    	  | STMicroelectronics                | SLA0051      | 
+| MW/OpenAMP                    	      | Xilinx Inc.and Contributors       | BSD-3-Clause |      			
 | Application Projects      			  | STMicroelectronics 			      | SLA0044      |    			   
 | Example Projects      			  	  | STMicroelectronics  	    	  | BSD-3-Clause |
 | Utilities X-NUCLEO-NFC_software      	  | STMicroelectronics 			      | SLA0077      |			
