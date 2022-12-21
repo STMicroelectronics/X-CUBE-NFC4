@@ -1,5 +1,5 @@
 
-## <b>NDEF URI Application Description</b>
+## <b>NDEF_URI Application Description</b>
 
 NDEF_URI application for dynamic NFC/RFID tag IC Expansion Board and STM32 Nucleo Boards
 
@@ -8,26 +8,26 @@ Example Description:
 This example application shows how to write an NDEF message to the ST25DV EEPROM using the
 NDEF lib middleware.
 
-The yellow LED is switched ON when the message has been successfully written.
+*The yellow LED is switched ON when the message has been successfully written.
 
-The tag URI message can be read using an Android smartphone and the ST25
+*The tag URI message can be read using an Android smartphone and the ST25
 NFC app available on Google Play https://play.google.com/store/apps/details?id=com.st.st25nfc&hl=en_SG. 
 
-X-NUCLEO-NFC04A1 dynamic NFC/RFID tag IC expansion board is based on the ST25DV04K
-NFC Type V/RFID tag IC with a dual interface 4 Kbits EEPROM that also features an I²C interface. It
+*X-NUCLEO-NFC04A1 dynamic NFC/RFID tag IC expansion board is based on the ST25DV04K
+*NFC Type V/RFID tag IC with a dual interface 4 Kbits EEPROM that also features an I²C interface. It
 can be powered by the pin of Arduino connector or directly by the received carrier electromagnetic field
 
-The ST25DV04K features a low power down (LPD) pin, a general purpose output (GPO)
+*The ST25DV04K features a low power down (LPD) pin, a general purpose output (GPO)
 and an energy harvesting feature that lets you output the energy coming from the RF field
 on the Vout analog pin and acts on ST1 jumper to enable it
 
 
-NO SUPPORT WILL BE PROVIDED TO YOU BY STMICROELECTRONICS FOR ANY OF THE
-ANDROID .apk FILES INCLUDED IN OR REFERENCED BY THIS PACKAGE.
+*NO SUPPORT WILL BE PROVIDED TO YOU BY STMICROELECTRONICS FOR ANY OF THE
+*ANDROID .apk FILES INCLUDED IN OR REFERENCED BY THIS PACKAGE.
 
 Known limitations:
 
-- When starting the project from Example Selector in STM32CubeMX and regenerating it
+* When starting the project from Example Selector in STM32CubeMX and regenerating it
   from ioc file, you may face a build issue. To solve it, if you started the project for the
   Nucleo-F401RE board, remove from the IDE project the file stm32f4xx_nucleo.c in the Application/User
   virtual folder and delete, from Src and Inc folders, the files: stm32f4xx_nucleo.c, stm32f4xx_nucleo.h
@@ -42,34 +42,32 @@ NFC, NDEF, EEPROM, I2C, ST25DV04K
 
 ### <b>Directory contents</b>
 
- - app_nfc.c              NDEF URI initialization and applicative code.
+* app_nfc.c              NDEF URI initialization and applicative code.
  
- - lib_NDEF_config.c      Lib NDEF config file.
+* lib_NDEF_config.c      Lib NDEF config file.
 
- - main.c                 Main program body.
+* main.c                 Main program body.
 
- - stm32**xx_hal_msp.c    This file provides code for the MSP Initialization
+* stm32**xx_hal_msp.c    This file provides code for the MSP Initialization
                           and de-Initialization.
 						
- - stm32**xx_nucleo_bus.c Source file for the BSP BUS IO driver.
+* stm32**xx_nucleo_bus.c Source file for the BSP BUS IO driver.
  
- - stm32**xx_it.c         Source code for interrupt Service Routines.
+* stm32**xx_it.c         Source code for interrupt Service Routines.
  
- - stm32**xx_nucleo.c     Source file for the BSP Common driver
+* stm32**xx_nucleo.c     Source file for the BSP Common driver
  
- - system_stm32**xx.c     CMSIS Cortex-M4 Device Peripheral Access Layer
+* system_stm32**xx.c     CMSIS Cortex-M4 Device Peripheral Access Layer
                           System Source File.
 
  
 ### <b>Hardware and Software environment</b>
 
-  - This example runs on STM32 Nucleo boards with X-NUCLEO-NFC04A1 STM32 expansion board
-  - This example has been tested with STMicroelectronics:
-    - NUCLEO-F401RE RevC board  
-    - NUCLEO-L053R8 RevC board
-    - NUCLEO-L476RG RevC board
-    and can be easily tailored to any other supported device and development 
-    board.
+*This example runs on STM32 Nucleo boards with X-NUCLEO-NFC04A1 STM32 expansion board
+*This example has been tested with STMicroelectronics:
+    * NUCLEO-F401RE RevC board  
+    * NUCLEO-L053R8 RevC board
+    * NUCLEO-L476RG RevC board and can be easily tailored to any other supported device and development board.
      
 
 ADDITIONAL_BOARD : X-NUCLEO-NFC04A1 https://www.st.com/content/st_com/en/products/ecosystems/stm32-open-development-environment/stm32-nucleo-expansion-boards/stm32-ode-connect-hw/x-nucleo-nfc04a1.html#
@@ -77,12 +75,13 @@ ADDITIONAL_COMP : ST25DV04K https://www.st.com/content/st_com/en/products/nfc/st
 
 ### <b>How to use it?</b> 
 
--   In order to make the program work, you must do the following:
-    - WARNING: before opening the project with any toolchain be sure your folder installation path is not too in-depth since the toolchain may report errors after building.
-    - Open STM32CubeIDE (this firmware has been successfully tested with Version 1.10.1). Alternatively you can use the Keil uVision toolchain (this firmware has been successfully tested with V5.37.0) or the IAR toolchain   (this firmware has been successfully tested with Embedded Workbench V9.20.1).
-    - Rebuild all files and load your image into target memory.
-    - Run the example.
-    - Alternatively, you can download the pre-built binaries in "Binary" folder included in the distributed package.
+*   In order to make the program work, you must do the following:
+    * WARNING: before opening the project with any toolchain be sure your folder installation path is not too in-depth since the toolchain may report errors after building.
+    * The tested tool chain and environment is explained in the Release notes
+    * Open the suitable toolchain (STM32CubeIDE, IAR, Keil) and open the project for the required STM32 Nucleo board
+    * Rebuild all files and load your image into target memory.
+    * Run the example.
+    * Alternatively, you can download the pre-built binaries in “Binary” folder included in the distributed package.
 
 ### <b>Author</b>
 

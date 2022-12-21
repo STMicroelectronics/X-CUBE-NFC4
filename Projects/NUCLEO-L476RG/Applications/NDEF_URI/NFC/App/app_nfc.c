@@ -3,7 +3,7 @@
   ******************************************************************************
   * File Name          :  app_nfc.c
   * Description        : This file provides code for the configuration
-  *                      of the STMicroelectronics.X-CUBE-NFC4.2.0.5 instances.
+  *                      of the STMicroelectronics.X-CUBE-NFC4.3.0.0 instances.
   ******************************************************************************
   * @attention
   *

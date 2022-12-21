@@ -25,7 +25,20 @@ This Library is compatible with all STM32 devices based on Cortex-M0, Cortex-M3 
 # Update History
 
 ::: {.collapse}
-<input type="checkbox" id="collapse-section8" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section9" checked aria-hidden="true">
+<label for="collapse-section9" aria-hidden="true">V1.3.3 / 01-December-2022</label>
+<div>
+
+## Main Changes
+
+- Bug fix
+
+</div>
+
+:::
+
+::: {.collapse}
+<input type="checkbox" id="collapse-section8" aria-hidden="true">
 <label for="collapse-section8" aria-hidden="true">V1.3.2 / 28-February-2022</label>
 <div>
 
