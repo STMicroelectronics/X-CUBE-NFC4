@@ -2,6 +2,9 @@
 
 ![latest tag](https://img.shields.io/github/v/tag/STMicroelectronics/x-cube-nfc4.svg?color=brightgreen)
 
+> [!NOTE]
+> ## **X-CUBE-NFC4** software package is now deprecated and this repository is not maintained anymore.
+
 The X-CUBE-NFC4 software expansion for STM32Cube provides a complete middleware for STM32 to build applications using dynamic NFC/RFID tag IC (ST25DV device). The software is based on STM32Cube technology and expands STM32Cube based packages. It is built on top of STM32Cube software technology to ease portability across different STM32 microcontrollers.
 
 **X-CUBE-NFC4 software features**:
